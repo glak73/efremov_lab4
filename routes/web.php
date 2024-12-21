@@ -4,15 +4,16 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+
 use App\Http\Controllers\DashboardController;
-use App\Http\Middleware\IsAdminMiddleware;
+use App\Models\Product;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome', ['products' => Product::paginate(15)]);
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
-
+Route::get('/search', [ProductController::class, 'search'])->name('product.search');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

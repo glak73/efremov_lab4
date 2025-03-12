@@ -4,6 +4,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OrderController;
 
 use App\Http\Controllers\DashboardController;
 use App\Models\Product;
@@ -23,5 +24,6 @@ Route::middleware('auth')->group(function () {
 Route::resource('product', ProductController::class);
 
 Route::post('/product/{product}/comments', [App\Http\Controllers\CommentController::class, 'store'])->name('comments.store')->middleware('auth');
+Route::post('/order/create', [OrderController::class, 'store'])->name('order.create')->middleware('auth');
 
 require __DIR__ . '/auth.php';

@@ -38,6 +38,19 @@ method="GET">
                                 Узнать подробнее
                             </a>
                         </div>
+                        <div class="mt-4">
+                            <form action="{{ route('order.create', $product->id) }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="status" value="pending"> <!-- Пример значения статуса -->
+                                <input type="hidden" name="price" value="{{ intval($product->price) }}">
+                                <input type="hidden" name="product_name" value="{{ $product->name }}">
+                                <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                    сделать заказ
+                                </button>
+                            </form>
+                        </div>
+
                     </div>
                 </div>
             @endforeach
